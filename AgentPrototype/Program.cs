@@ -1,8 +1,10 @@
 ﻿using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Management;
 
 namespace AgentPrototype
 {
@@ -11,15 +13,33 @@ namespace AgentPrototype
 
         static void Main(string[] args)
         {
-            try
-            {
-                InitialConfig();
-            }
-            catch (NotImplementedException e)
-            {
-                Console.WriteLine("The called method was not implemented");
-                Console.WriteLine(e.Message);
-            }
+
+            //            SystemInfo.GetActiveProcessList();
+            //            SystemInfo.GetInstalledSoftList();
+            //            SystemInfo.GetServicesStatus();
+//            SystemInfo.GetOSInfo();
+            SystemInfo.GetStorageInfo();
+
+
+
+
+
+
+
+
+
+
+            //            try
+            //            {
+            //                InitialConfig();
+            //            }
+            //            catch (NotImplementedException e)
+            //            {
+            //                Console.WriteLine("The called method was not implemented");
+            //                Console.WriteLine(e.Message);
+            //            }
+
+
 
 
 
