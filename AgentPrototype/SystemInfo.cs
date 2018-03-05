@@ -17,6 +17,138 @@ namespace AgentPrototype
         // Methods
 
 
+        public static void GetHddInfo()
+        {
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2",
+                    "SELECT * FROM Win32_DiskDrive");
+
+            Console.WriteLine("--------- Win32_DiskDrive instance ---------------");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("DeviceID: {0}; InterfaceType: {1}; Manufacturer: {2}; Model: {3}; SerialNumber: {4}; Size: {5} Gb", queryObj["DeviceID"],
+                    queryObj["InterfaceType"],
+                    queryObj["Manufacturer"],
+                    queryObj["Model"],
+                    queryObj["SerialNumber"],
+                    Math.Round(System.Convert.ToDouble(queryObj["Size"]) / 1024 / 1024 / 1024, 2));
+                Console.WriteLine("-----");
+            }
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
+
+        public static void GetRamInfo()
+        {
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2",
+                    "SELECT * FROM Win32_PhysicalMemory");
+
+            Console.WriteLine("------------- Win32_PhysicalMemory instance --------");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("BankLabel: {0} ; Capacity: {1} Gb; Speed: {2} ", queryObj["BankLabel"],
+                    Math.Round(System.Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2),
+                    queryObj["Speed"]);
+            }
+
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
+
+        public static void GetCpuInfo()
+        {
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2",
+                    "SELECT * FROM Win32_Processor");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("------------- Win32_Processor instance ---------------");
+                Console.WriteLine("Name: {0}", queryObj["Name"]);
+                Console.WriteLine("NumberOfCores: {0}", queryObj["NumberOfCores"]);
+                Console.WriteLine("ProcessorId: {0}", queryObj["ProcessorId"]);
+            }
+
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
+
+        public static void GetVideoControllerInfo()
+        {
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2",
+                    "SELECT * FROM Win32_VideoController");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("----------- Win32_VideoController instance -----------");
+                Console.WriteLine("AdapterRAM: {0}", queryObj["AdapterRAM"]);
+                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
+                Console.WriteLine("Description: {0}", queryObj["Description"]);
+                Console.WriteLine("VideoProcessor: {0}", queryObj["VideoProcessor"]);
+            }
+
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
+
+        public static void GetNetworkInterfacesInfo()
+        {
+            ManagementObjectSearcher searcher = new ManagementObjectSearcher("root\\CIMV2",
+                                        "SELECT * FROM Win32_NetworkAdapterConfiguration");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("--------- Win32_NetworkAdapterConfiguration instance --------------");
+                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
+
+                if (queryObj["DefaultIPGateway"] == null)
+                    Console.WriteLine("DefaultIPGateway: {0}", queryObj["DefaultIPGateway"]);
+                else
+                {
+                    String[] arrDefaultIPGateway = (String[])(queryObj["DefaultIPGateway"]);
+                    foreach (String arrValue in arrDefaultIPGateway)
+                    {
+                        Console.WriteLine("DefaultIPGateway: {0}", arrValue);
+                    }
+                }
+
+                if (queryObj["DNSServerSearchOrder"] == null)
+                    Console.WriteLine("DNSServerSearchOrder: {0}", queryObj["DNSServerSearchOrder"]);
+                else
+                {
+                    String[] arrDNSServerSearchOrder = (String[])(queryObj["DNSServerSearchOrder"]);
+                    foreach (String arrValue in arrDNSServerSearchOrder)
+                    {
+                        Console.WriteLine("DNSServerSearchOrder: {0}", arrValue);
+                    }
+                }
+
+                if (queryObj["IPAddress"] == null)
+                    Console.WriteLine("IPAddress: {0}", queryObj["IPAddress"]);
+                else
+                {
+                    String[] arrIPAddress = (String[])(queryObj["IPAddress"]);
+                    foreach (String arrValue in arrIPAddress)
+                    {
+                        Console.WriteLine("IPAddress: {0}", arrValue);
+                    }
+                }
+
+                if (queryObj["IPSubnet"] == null)
+                    Console.WriteLine("IPSubnet: {0}", queryObj["IPSubnet"]);
+                else
+                {
+                    String[] arrIPSubnet = (String[])(queryObj["IPSubnet"]);
+                    foreach (String arrValue in arrIPSubnet)
+                    {
+                        Console.WriteLine("IPSubnet: {0}", arrValue);
+                    }
+                }
+                Console.WriteLine("MACAddress: {0}", queryObj["MACAddress"]);
+                Console.WriteLine("ServiceName: {0}", queryObj["ServiceName"]);
+            }
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
+
         public static void GetStorageInfo()
         {
             ManagementObjectSearcher searcher =

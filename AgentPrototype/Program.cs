@@ -17,11 +17,13 @@ namespace AgentPrototype
             //            SystemInfo.GetActiveProcessList();
             //            SystemInfo.GetInstalledSoftList();
             //            SystemInfo.GetServicesStatus();
-//            SystemInfo.GetOSInfo();
-            SystemInfo.GetStorageInfo();
-
-
-
+            //            SystemInfo.GetOSInfo();
+            //            SystemInfo.GetStorageInfo();
+            //            SystemInfo.GetNetworkInterfacesInfo();
+            //            SystemInfo.GetVideoControllerInfo();
+            //            SystemInfo.GetCpuInfo();
+//            SystemInfo.GetRamInfo();
+            SystemInfo.GetHddInfo();
 
 
 
