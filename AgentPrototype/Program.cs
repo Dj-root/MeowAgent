@@ -13,6 +13,8 @@ namespace AgentPrototype
 
         static void Main(string[] args)
         {
+            Console.WriteLine(OSVersionInfo.GetOSVersionInfo());
+//            OSVersionInfo.GetOSVersionInfo();
 
             //            SystemInfo.GetActiveProcessList();
             //            SystemInfo.GetInstalledSoftList();
@@ -22,7 +24,7 @@ namespace AgentPrototype
             //            SystemInfo.GetNetworkInterfacesInfo();
             //            SystemInfo.GetVideoControllerInfo();
             //            SystemInfo.GetCpuInfo();
-//            SystemInfo.GetRamInfo();
+            //            SystemInfo.GetRamInfo();
             SystemInfo.GetHddInfo();
 
 
