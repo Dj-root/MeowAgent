@@ -43,9 +43,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ISysInfo.cs" />
     <Compile Include="OSVersionInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RamInfo.cs" />
+    <Compile Include="SysInfo.cs" />
     <Compile Include="SystemInfo.cs" />
   </ItemGroup>
   <ItemGroup>

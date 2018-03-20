@@ -1,6 +1,7 @@
 ﻿using System;
 
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,23 +14,31 @@ namespace AgentPrototype
 
         static void Main(string[] args)
         {
-            Console.WriteLine(OSVersionInfo.GetOSVersionInfo());
-//            OSVersionInfo.GetOSVersionInfo();
 
-            //            SystemInfo.GetActiveProcessList();
-            //            SystemInfo.GetInstalledSoftList();
-            //            SystemInfo.GetServicesStatus();
-            //            SystemInfo.GetOSInfo();
-            //            SystemInfo.GetStorageInfo();
-            //            SystemInfo.GetNetworkInterfacesInfo();
-            //            SystemInfo.GetVideoControllerInfo();
-            //            SystemInfo.GetCpuInfo();
-            //            SystemInfo.GetRamInfo();
-            SystemInfo.GetHddInfo();
+            //List<SysInfo> sysInfo = new List<SysInfo>();
+            List<RamInfo> sysInfo = SystemInfo.GetRamInfo();
+            //Console.WriteLine(OSVersionInfo.GetOSVersionInfo());
+            //OSVersionInfo.GetOSVersionInfo();
+
+            //SystemInfo.GetActiveProcessList();
+            //SystemInfo.GetInstalledSoftList();
+            //SystemInfo.GetServicesStatus();
+            //SystemInfo.GetOSInfo();
+            //SystemInfo.GetStorageInfo();
+            //SystemInfo.GetNetworkInterfacesInfo();
+            //SystemInfo.GetVideoControllerInfo();
+            //SystemInfo.GetCpuInfo();
+            //SystemInfo.GetRamInfo();
+            //SystemInfo.GetHddInfo();
 
 
+            //sysInfo.AddRange(SystemInfo.GetRamInfo());
 
 
+            foreach (var ri in sysInfo)
+            {
+                Console.WriteLine(ri.ToString());
+            }
 
 
 

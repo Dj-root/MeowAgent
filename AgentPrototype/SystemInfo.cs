@@ -38,8 +38,10 @@ namespace AgentPrototype
             Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
         }
 
-        public static void GetRamInfo()
+        public static List<RamInfo> GetRamInfo()
         {
+            List<RamInfo> ramList = new List<RamInfo>();
+
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_PhysicalMemory");
@@ -47,12 +49,23 @@ namespace AgentPrototype
             Console.WriteLine("------------- Win32_PhysicalMemory instance --------");
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                Console.WriteLine("BankLabel: {0} ; Capacity: {1} Gb; Speed: {2} ", queryObj["BankLabel"],
-                    Math.Round(System.Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2),
-                    queryObj["Speed"]);
+                //Console.WriteLine("BankLabel: {0} ; Capacity: {1} Gb; Speed: {2} ", queryObj["BankLabel"],
+                //    Math.Round(System.Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2),
+                //    queryObj["Speed"]);
+
+                RamInfo r = new RamInfo();
+
+                r.BankLabel = (string)queryObj["BankLabel"].ToString();
+                r.Capacity = Math.Round(System.Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2);
+                r.Speed = Int32.Parse(queryObj["Speed"].ToString());
+
+                ramList.Add(r);
+
+                //ramList.Add(new RamInfo {Int32.TryParse(queryObj["BankLabel"])});
             }
 
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            return ramList;
+            //Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
         }
 
         public static void GetCpuInfo()
