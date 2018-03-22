@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CpuInfo.cs" />
+    <Compile Include="HddInfo.cs" />
     <Compile Include="ISysInfo.cs" />
     <Compile Include="OSVersionInfo.cs" />
     <Compile Include="Program.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="RamInfo.cs" />
     <Compile Include="SysInfo.cs" />
     <Compile Include="SystemInfo.cs" />
+    <Compile Include="VideoInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

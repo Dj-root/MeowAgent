@@ -16,26 +16,60 @@ namespace AgentPrototype
 
         // Methods
 
+        //        ===================================================================
+        //        Work with sensor's data
+        //        ===================================================================
 
-        public static void GetHddInfo()
+
+
+
+
+
+
+
+
+        //        ===================================================================
+        //        Get information from system sensors
+        //        ===================================================================
+
+        public static List<HddInfo> GetHddInfo()
         {
+            List<HddInfo> hddInfo = new List<HddInfo>();
+
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_DiskDrive");
 
-            Console.WriteLine("--------- Win32_DiskDrive instance ---------------");
+            //            Console.WriteLine("--------- Win32_DiskDrive instance ---------------");
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                Console.WriteLine("DeviceID: {0}; InterfaceType: {1}; Manufacturer: {2}; Model: {3}; SerialNumber: {4}; Size: {5} Gb", queryObj["DeviceID"],
-                    queryObj["InterfaceType"],
-                    queryObj["Manufacturer"],
-                    queryObj["Model"],
-                    queryObj["SerialNumber"],
-                    Math.Round(System.Convert.ToDouble(queryObj["Size"]) / 1024 / 1024 / 1024, 2));
-                Console.WriteLine("-----");
+                HddInfo hi = new HddInfo();
+
+                hi.Caption = (string)queryObj["Caption"];
+                hi.DeviceID = (string)queryObj["DeviceID"];
+                hi.InterfaceType = (string)queryObj["InterfaceType"];
+                hi.Manufacturer = (string)queryObj["Manufacturer"];
+                hi.Model = (string)queryObj["Model"];
+                hi.Size = Math.Round(System.Convert.ToDouble(queryObj["Size"]) / 1024 / 1024 / 1024, 2);
+                hi.SerialNumber = (string)queryObj["SerialNumber"];
+
+                hddInfo.Add(hi);
+//                Console.WriteLine("DeviceID: {0}; InterfaceType: {1}; Manufacturer: {2}; Model: {3}; SerialNumber: {4}; Size: {5} Gb", queryObj["DeviceID"],
+//                                queryObj["InterfaceType"],
+//                                queryObj["Manufacturer"],
+//                                queryObj["Model"],
+//                                queryObj["SerialNumber"],
+//                                Math.Round(System.Convert.ToDouble(queryObj["Size"]) / 1024 / 1024 / 1024, 2));
+//                Console.WriteLine("-----");
             }
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+
+            //            foreach (ManagementObject queryObj in searcher.Get())
+            //            {
+            //                queryObj.ToString();
+            //            }
+//            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            return hddInfo;
         }
 
         public static List<RamInfo> GetRamInfo()
@@ -46,7 +80,7 @@ namespace AgentPrototype
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_PhysicalMemory");
 
-            Console.WriteLine("------------- Win32_PhysicalMemory instance --------");
+            //            Console.WriteLine("------------- Win32_PhysicalMemory instance --------");
             foreach (ManagementObject queryObj in searcher.Get())
             {
                 //Console.WriteLine("BankLabel: {0} ; Capacity: {1} Gb; Speed: {2} ", queryObj["BankLabel"],
@@ -68,39 +102,68 @@ namespace AgentPrototype
             //Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
         }
 
-        public static void GetCpuInfo()
+        public static List<CpuInfo> GetCpuInfo()
         {
+            List<CpuInfo> cpuInfo = new List<CpuInfo>();
+
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_Processor");
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                Console.WriteLine("------------- Win32_Processor instance ---------------");
-                Console.WriteLine("Name: {0}", queryObj["Name"]);
-                Console.WriteLine("NumberOfCores: {0}", queryObj["NumberOfCores"]);
-                Console.WriteLine("ProcessorId: {0}", queryObj["ProcessorId"]);
+                CpuInfo si = new CpuInfo();
+                si.Manufacturer = (string)queryObj["Manufacturer"].ToString();
+                si.Name = (string)queryObj["Name"].ToString();
+                si.NumberOfCores = Int32.Parse(queryObj["NumberOfCores"].ToString());
+                si.NumberOfLogicalProcessors = Int32.Parse(queryObj["NumberOfLogicalProcessors"].ToString());
+                si.ThreadCount = Int32.Parse(queryObj["ThreadCount"].ToString());
+                si.CurrentClockSpeed = Int32.Parse(queryObj["CurrentClockSpeed"].ToString());
+                si.ProcessorId = queryObj["ProcessorId"].ToString();
+
+                cpuInfo.Add(si);
+
+                //                Console.WriteLine("------------- Win32_Processor instance ---------------");
+                //                Console.WriteLine("Manufacturer: {0}", queryObj["Manufacturer"]);
+                //                Console.WriteLine("Name: {0}", queryObj["Name"]);
+                //                Console.WriteLine("NumberOfCores: {0}", queryObj["NumberOfCores"]);
+                //                Console.WriteLine("NumberOfLogicalProcessors: {0}", queryObj["NumberOfLogicalProcessors"]);
+                //                Console.WriteLine("ThreadCount: {0}", queryObj["ThreadCount"]);
+                //                Console.WriteLine("CurrentClockSpeed: {0}", queryObj["CurrentClockSpeed"]);
+                //                Console.WriteLine("ProcessorId: {0}", queryObj["ProcessorId"]);
             }
 
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            //            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            return cpuInfo;
         }
 
-        public static void GetVideoControllerInfo()
+        public static List<VideoInfo> GetVideoControllerInfo()
         {
+            List<VideoInfo> videoInfo = new List<VideoInfo>();
+
+
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2",
                     "SELECT * FROM Win32_VideoController");
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                Console.WriteLine("----------- Win32_VideoController instance -----------");
-                Console.WriteLine("AdapterRAM: {0}", queryObj["AdapterRAM"]);
-                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
-                Console.WriteLine("Description: {0}", queryObj["Description"]);
-                Console.WriteLine("VideoProcessor: {0}", queryObj["VideoProcessor"]);
+                VideoInfo vi = new VideoInfo();
+                vi.AdapterRAM = Math.Round(System.Convert.ToDouble(queryObj["AdapterRAM"]) / 1024 / 1024 / 1024, 2);
+                vi.Caption = (string)queryObj["Caption"];
+                vi.Description = (string)queryObj["Description"];
+                vi.VideoProcessor = (string)queryObj["VideoProcessor"];
+
+                videoInfo.Add(vi);
+                //                Console.WriteLine("----------- Win32_VideoController instance -----------");
+                //                Console.WriteLine("AdapterRAM: {0} GB", Math.Round(System.Convert.ToDouble(queryObj["AdapterRAM"]) / 1024 / 1024 / 1024, 2));
+                //                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
+                //                Console.WriteLine("Description: {0}", queryObj["Description"]);
+                //                Console.WriteLine("VideoProcessor: {0}", queryObj["VideoProcessor"]);
             }
 
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            return videoInfo;
+            //            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
         }
 
         public static void GetNetworkInterfacesInfo()

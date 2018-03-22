@@ -1,6 +1,7 @@
 ﻿using System;
 
 using System.Collections.Generic;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +17,7 @@ namespace AgentPrototype
         {
 
             //List<SysInfo> sysInfo = new List<SysInfo>();
-            List<RamInfo> sysInfo = SystemInfo.GetRamInfo();
+
             //Console.WriteLine(OSVersionInfo.GetOSVersionInfo());
             //OSVersionInfo.GetOSVersionInfo();
 
@@ -35,31 +36,37 @@ namespace AgentPrototype
             //sysInfo.AddRange(SystemInfo.GetRamInfo());
 
 
+
+
+
+            //        ===================================================================
+            //        Work with sensor's data
+            //        ===================================================================
+
+            //            Create List of Base Class
+            List<SysInfo> sysInfo = new List<SysInfo>();
+
+            //            Create Lists of Child classed and fill it
+            List<RamInfo> ramInfo = SystemInfo.GetRamInfo();
+            List<CpuInfo> cpuInfo = SystemInfo.GetCpuInfo();
+            List<VideoInfo> videoInfo = SystemInfo.GetVideoControllerInfo();
+            List<HddInfo> hddInfo = SystemInfo.GetHddInfo();
+
+            //            Add Child's Lists to Base List            
+            sysInfo.AddRange(ramInfo);
+            sysInfo.AddRange(cpuInfo);
+            sysInfo.AddRange(videoInfo);
+            sysInfo.AddRange(hddInfo);
+
+
+
+            //            Test methods for debug
+                        SystemInfo.GetHddInfo();
+
             foreach (var ri in sysInfo)
             {
                 Console.WriteLine(ri.ToString());
             }
-
-
-
-            //            try
-            //            {
-            //                InitialConfig();
-            //            }
-            //            catch (NotImplementedException e)
-            //            {
-            //                Console.WriteLine("The called method was not implemented");
-            //                Console.WriteLine(e.Message);
-            //            }
-
-
-
-
-
-
-
-
-
             Console.ReadLine();
 
         }
