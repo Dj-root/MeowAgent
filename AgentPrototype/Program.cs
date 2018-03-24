@@ -40,12 +40,14 @@ namespace AgentPrototype
             //        Debug source data
             //        ===================================================================
 
+            //SystemInfo.GetTestStorageInfo();
+            //Console.WriteLine("\n===\n");
 
             //SystemInfo.GetStorageInfo();
             //List<NetworkInfo> netInfo = SystemInfo.GetNetworkInterfacesInfo();
+            //List<StorageInfo> storInfo = SystemInfo.GetStorageInfo();
 
-
-            //foreach (var info in netInfo)
+            //foreach (var info in storInfo)
             //{
             //    info.GetInfo();
             //}
@@ -64,6 +66,7 @@ namespace AgentPrototype
             List<CpuInfo> cpuInfo = SystemInfo.GetCpuInfo();
             List<VideoInfo> videoInfo = SystemInfo.GetVideoControllerInfo();
             List<HddInfo> hddInfo = SystemInfo.GetHddInfo();
+            List<StorageInfo> storageInfo = SystemInfo.GetStorageInfo();
             List<NetworkInfo> networkInfo = SystemInfo.GetNetworkInterfacesInfo();
 
 
@@ -73,6 +76,7 @@ namespace AgentPrototype
             sysInfo.AddRange(videoInfo);
             sysInfo.AddRange(hddInfo);
             sysInfo.AddRange(networkInfo);
+            sysInfo.AddRange(storageInfo);
 
 
 
@@ -87,7 +91,7 @@ namespace AgentPrototype
             Console.ReadLine();
             //*/
 
-
+            //PreparationForSerialization();
 
 
 
@@ -95,6 +99,18 @@ namespace AgentPrototype
             Console.WriteLine("*** End of Main Section. Press Enter... ***");
             Console.ReadLine();
         }
+
+
+        public static void PreparationForSerialization()
+        {
+            Console.WriteLine(Environment.SystemDirectory);
+            //Environment.OSVersion.Version.Build.ToString();
+
+
+
+        }
+
+
 
 
 

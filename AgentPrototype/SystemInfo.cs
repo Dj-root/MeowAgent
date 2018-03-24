@@ -244,170 +244,213 @@ namespace AgentPrototype
                     //}
                 }
 
-                ni.MACAddress = (string) queryObj["MACAddress"];
+                ni.MACAddress = (string)queryObj["MACAddress"];
                 ni.ServiceName = (string)queryObj["ServiceName"];
                 //Console.WriteLine("MACAddress: {0}", queryObj["MACAddress"]);
                 //Console.WriteLine("ServiceName: {0}", queryObj["ServiceName"]);
 
                 networkInfo.Add(ni);
             }
-            
 
-        /* Backup source data
 
-                     foreach (ManagementObject queryObj in searcher.Get())
-        {
-            Console.WriteLine("--------- Win32_NetworkAdapterConfiguration instance --------------");
-            Console.WriteLine("Caption: {0}", queryObj["Caption"]);
+            /* Backup source data
 
-            if (queryObj["DefaultIPGateway"] == null)
-                Console.WriteLine("DefaultIPGateway: {0}", queryObj["DefaultIPGateway"]);
-            else
+                         foreach (ManagementObject queryObj in searcher.Get())
             {
-                String[] arrDefaultIPGateway = (String[])(queryObj["DefaultIPGateway"]);
-                foreach (String arrValue in arrDefaultIPGateway)
-                {
-                    Console.WriteLine("DefaultIPGateway: {0}", arrValue);
-                }
-            }
+                Console.WriteLine("--------- Win32_NetworkAdapterConfiguration instance --------------");
+                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
 
-            if (queryObj["DNSServerSearchOrder"] == null)
-                Console.WriteLine("DNSServerSearchOrder: {0}", queryObj["DNSServerSearchOrder"]);
-            else
-            {
-                String[] arrDNSServerSearchOrder = (String[])(queryObj["DNSServerSearchOrder"]);
-                foreach (String arrValue in arrDNSServerSearchOrder)
+                if (queryObj["DefaultIPGateway"] == null)
+                    Console.WriteLine("DefaultIPGateway: {0}", queryObj["DefaultIPGateway"]);
+                else
                 {
-                    Console.WriteLine("DNSServerSearchOrder: {0}", arrValue);
+                    String[] arrDefaultIPGateway = (String[])(queryObj["DefaultIPGateway"]);
+                    foreach (String arrValue in arrDefaultIPGateway)
+                    {
+                        Console.WriteLine("DefaultIPGateway: {0}", arrValue);
+                    }
                 }
-            }
 
-            if (queryObj["IPAddress"] == null)
-                Console.WriteLine("IPAddress: {0}", queryObj["IPAddress"]);
-            else
-            {
-                String[] arrIPAddress = (String[])(queryObj["IPAddress"]);
-                foreach (String arrValue in arrIPAddress)
+                if (queryObj["DNSServerSearchOrder"] == null)
+                    Console.WriteLine("DNSServerSearchOrder: {0}", queryObj["DNSServerSearchOrder"]);
+                else
                 {
-                    Console.WriteLine("IPAddress: {0}", arrValue);
+                    String[] arrDNSServerSearchOrder = (String[])(queryObj["DNSServerSearchOrder"]);
+                    foreach (String arrValue in arrDNSServerSearchOrder)
+                    {
+                        Console.WriteLine("DNSServerSearchOrder: {0}", arrValue);
+                    }
                 }
-            }
 
-            if (queryObj["IPSubnet"] == null)
-                Console.WriteLine("IPSubnet: {0}", queryObj["IPSubnet"]);
-            else
-            {
-                String[] arrIPSubnet = (String[])(queryObj["IPSubnet"]);
-                foreach (String arrValue in arrIPSubnet)
+                if (queryObj["IPAddress"] == null)
+                    Console.WriteLine("IPAddress: {0}", queryObj["IPAddress"]);
+                else
                 {
-                    Console.WriteLine("IPSubnet: {0}", arrValue);
+                    String[] arrIPAddress = (String[])(queryObj["IPAddress"]);
+                    foreach (String arrValue in arrIPAddress)
+                    {
+                        Console.WriteLine("IPAddress: {0}", arrValue);
+                    }
                 }
+
+                if (queryObj["IPSubnet"] == null)
+                    Console.WriteLine("IPSubnet: {0}", queryObj["IPSubnet"]);
+                else
+                {
+                    String[] arrIPSubnet = (String[])(queryObj["IPSubnet"]);
+                    foreach (String arrValue in arrIPSubnet)
+                    {
+                        Console.WriteLine("IPSubnet: {0}", arrValue);
+                    }
+                }
+                Console.WriteLine("MACAddress: {0}", queryObj["MACAddress"]);
+                Console.WriteLine("ServiceName: {0}", queryObj["ServiceName"]);
             }
-            Console.WriteLine("MACAddress: {0}", queryObj["MACAddress"]);
-            Console.WriteLine("ServiceName: {0}", queryObj["ServiceName"]);
-        }
-         *
-         */
-        Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+             *
+             */
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
 
             return networkInfo;
         }
 
-    public static void GetStorageInfo()
-    {
-        ManagementObjectSearcher searcher =
-            new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Volume");
-
-        foreach (ManagementObject queryObj in searcher.Get())
+        public static List<StorageInfo> GetStorageInfo()
         {
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Win32_Volume instance");
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Capacity: {0}", queryObj["Capacity"]);
-            Console.WriteLine("Caption: {0}", queryObj["Caption"]);
-            Console.WriteLine("DriveLetter: {0}", queryObj["DriveLetter"]);
-            Console.WriteLine("DriveType: {0}", queryObj["DriveType"]);
-            Console.WriteLine("FileSystem: {0}", queryObj["FileSystem"]);
-            Console.WriteLine("FreeSpace: {0}", queryObj["FreeSpace"]);
-        }
-        Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
-    }
+            List<StorageInfo> storageInfo = new List<StorageInfo>();
 
-    public static void GetOSInfo()
-    {
-        ManagementObjectSearcher searcher =
-            new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_OperatingSystem");
 
-        foreach (ManagementObject queryObj in searcher.Get())
-        {
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Win32_OperatingSystem instance");
-            Console.WriteLine("-----------------------------------");
-            Console.WriteLine("BuildNumber: {0}", queryObj["BuildNumber"]);
-            Console.WriteLine("Caption: {0}", queryObj["Caption"]);
-            Console.WriteLine("FreePhysicalMemory: {0}", queryObj["FreePhysicalMemory"]);
-            Console.WriteLine("FreeVirtualMemory: {0}", queryObj["FreeVirtualMemory"]);
-            Console.WriteLine("Name: {0}", queryObj["Name"]);
-            Console.WriteLine("OSType: {0}", queryObj["OSType"]);
-            Console.WriteLine("RegisteredUser: {0}", queryObj["RegisteredUser"]);
-            Console.WriteLine("SerialNumber: {0}", queryObj["SerialNumber"]);
-            Console.WriteLine("ServicePackMajorVersion: {0}", queryObj["ServicePackMajorVersion"]);
-            Console.WriteLine("ServicePackMinorVersion: {0}", queryObj["ServicePackMinorVersion"]);
-            Console.WriteLine("Status: {0}", queryObj["Status"]);
-            Console.WriteLine("SystemDevice: {0}", queryObj["SystemDevice"]);
-            Console.WriteLine("SystemDirectory: {0}", queryObj["SystemDirectory"]);
-            Console.WriteLine("SystemDrive: {0}", queryObj["SystemDrive"]);
-            Console.WriteLine("Version: {0}", queryObj["Version"]);
-            Console.WriteLine("WindowsDirectory: {0}", queryObj["WindowsDirectory"]);
-        }
-        Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
-    }
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Volume");
 
-    public static void GetServicesStatus()
-    {
-        ManagementObjectSearcher searcher =
-            new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Service");
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                StorageInfo si = new StorageInfo();
+                
+                //Console.WriteLine("-----------------------------------");
+                //Console.WriteLine("Win32_Volume instance");
+                //Console.WriteLine("-----------------------------------");
+                si.Capacity = Math.Round(System.Convert.ToDouble(queryObj["Capacity"]) / 1024 / 1024 / 1024, 2);
+                si.Caption = queryObj["Caption"].ToString();
 
-        foreach (ManagementObject queryObj in searcher.Get())
-        {
-            Console.WriteLine("\n------------------------------------------------");
-            Console.WriteLine("Win32_Service instance");
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("Caption: {0}", queryObj["Caption"]);
-            Console.WriteLine("Description: {0}", queryObj["Description"]);
-            Console.WriteLine("DisplayName: {0}", queryObj["DisplayName"]);
-            Console.WriteLine("Name: {0}", queryObj["Name"]);
-            Console.WriteLine("PathName: {0}", queryObj["PathName"]);
-            Console.WriteLine("Started: {0}", queryObj["Started"]);
+                //si.DriveLetter = queryObj["DriveLetter"].ToString() ?
+
+                if (queryObj["DriveLetter"]==null)
+                {
+                    si.DriveLetter = "";
+                }
+                else
+                {
+                    si.DriveLetter = queryObj["DriveLetter"].ToString();
+                }
+
+                si.DriveType = queryObj["DriveType"].ToString();
+                si.FileSystem = queryObj["FileSystem"].ToString();
+                si.FreeSpace = Math.Round(System.Convert.ToDouble(queryObj["FreeSpace"]) / 1024 / 1024 / 1024, 2);
+
+                storageInfo.Add(si);
+            }
+            
+            return storageInfo;
         }
 
-        Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
-    }
-
-    public static void GetInstalledSoftList()
-    {
-        ManagementObjectSearcher searcher =
-            new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Product");
-
-        foreach (ManagementObject queryObj in searcher.Get())
+        public static void GetTestStorageInfo()
         {
-            Console.WriteLine("<soft> Caption: {0}; InstallDate: {1}</soft>", queryObj["Caption"], queryObj["InstallDate"]);
+
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Volume");
+
+            
+              foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("Win32_Volume instance");
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("Capacity: {0}", queryObj["Capacity"]);
+                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
+                Console.WriteLine("DriveLetter: {0}", queryObj["DriveLetter"]);
+                Console.WriteLine("DriveType: {0}", queryObj["DriveType"]);
+                Console.WriteLine("FileSystem: {0}", queryObj["FileSystem"]);
+                Console.WriteLine("FreeSpace: {0}", queryObj["FreeSpace"]);
+            }
+
+            //Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+
         }
 
-        Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
-    }
-
-    public static void GetActiveProcessList()
-    {
-        ManagementObjectSearcher searcher =
-            new ManagementObjectSearcher("root\\CIMV2", "Select Name, CommandLine From Win32_Process");
-
-        foreach (ManagementBaseObject instance in searcher.Get())
+        public static void GetOSInfo()
         {
-            Console.WriteLine("{0}", instance["Name"]);
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_OperatingSystem");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("Win32_OperatingSystem instance");
+                Console.WriteLine("-----------------------------------");
+                Console.WriteLine("BuildNumber: {0}", queryObj["BuildNumber"]);
+                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
+                Console.WriteLine("FreePhysicalMemory: {0}", queryObj["FreePhysicalMemory"]);
+                Console.WriteLine("FreeVirtualMemory: {0}", queryObj["FreeVirtualMemory"]);
+                Console.WriteLine("Name: {0}", queryObj["Name"]);
+                Console.WriteLine("OSType: {0}", queryObj["OSType"]);
+                Console.WriteLine("RegisteredUser: {0}", queryObj["RegisteredUser"]);
+                Console.WriteLine("SerialNumber: {0}", queryObj["SerialNumber"]);
+                Console.WriteLine("ServicePackMajorVersion: {0}", queryObj["ServicePackMajorVersion"]);
+                Console.WriteLine("ServicePackMinorVersion: {0}", queryObj["ServicePackMinorVersion"]);
+                Console.WriteLine("Status: {0}", queryObj["Status"]);
+                Console.WriteLine("SystemDevice: {0}", queryObj["SystemDevice"]);
+                Console.WriteLine("SystemDirectory: {0}", queryObj["SystemDirectory"]);
+                Console.WriteLine("SystemDrive: {0}", queryObj["SystemDrive"]);
+                Console.WriteLine("Version: {0}", queryObj["Version"]);
+                Console.WriteLine("WindowsDirectory: {0}", queryObj["WindowsDirectory"]);
+            }
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
         }
 
-        Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        public static void GetServicesStatus()
+        {
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Service");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("\n------------------------------------------------");
+                Console.WriteLine("Win32_Service instance");
+                Console.WriteLine("------------------------------------------------");
+                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
+                Console.WriteLine("Description: {0}", queryObj["Description"]);
+                Console.WriteLine("DisplayName: {0}", queryObj["DisplayName"]);
+                Console.WriteLine("Name: {0}", queryObj["Name"]);
+                Console.WriteLine("PathName: {0}", queryObj["PathName"]);
+                Console.WriteLine("Started: {0}", queryObj["Started"]);
+            }
+
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
+
+        public static void GetInstalledSoftList()
+        {
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Product");
+
+            foreach (ManagementObject queryObj in searcher.Get())
+            {
+                Console.WriteLine("<soft> Caption: {0}; InstallDate: {1}</soft>", queryObj["Caption"], queryObj["InstallDate"]);
+            }
+
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
+
+        public static void GetActiveProcessList()
+        {
+            ManagementObjectSearcher searcher =
+                new ManagementObjectSearcher("root\\CIMV2", "Select Name, CommandLine From Win32_Process");
+
+            foreach (ManagementBaseObject instance in searcher.Get())
+            {
+                Console.WriteLine("{0}", instance["Name"]);
+            }
+
+            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+        }
     }
-}
 }
