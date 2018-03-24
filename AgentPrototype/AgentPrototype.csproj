@@ -46,6 +46,7 @@
     <Compile Include="CpuInfo.cs" />
     <Compile Include="HddInfo.cs" />
     <Compile Include="ISysInfo.cs" />
+    <Compile Include="NetworkInfo.cs" />
     <Compile Include="OSVersionInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -36,6 +36,19 @@ namespace AgentPrototype
             //sysInfo.AddRange(SystemInfo.GetRamInfo());
 
 
+            //        ===================================================================
+            //        Debug source data
+            //        ===================================================================
+
+
+            //SystemInfo.GetStorageInfo();
+            //List<NetworkInfo> netInfo = SystemInfo.GetNetworkInterfacesInfo();
+
+
+            //foreach (var info in netInfo)
+            //{
+            //    info.GetInfo();
+            //}
 
 
 
@@ -51,26 +64,44 @@ namespace AgentPrototype
             List<CpuInfo> cpuInfo = SystemInfo.GetCpuInfo();
             List<VideoInfo> videoInfo = SystemInfo.GetVideoControllerInfo();
             List<HddInfo> hddInfo = SystemInfo.GetHddInfo();
+            List<NetworkInfo> networkInfo = SystemInfo.GetNetworkInterfacesInfo();
+
 
             //            Add Child's Lists to Base List            
             sysInfo.AddRange(ramInfo);
             sysInfo.AddRange(cpuInfo);
             sysInfo.AddRange(videoInfo);
             sysInfo.AddRange(hddInfo);
+            sysInfo.AddRange(networkInfo);
 
 
 
-            //            Test methods for debug
-                        SystemInfo.GetHddInfo();
 
+            // Print all data from List to screen
+
+            ///*
             foreach (var ri in sysInfo)
             {
-                Console.WriteLine(ri.ToString());
+                ri.GetInfo();
             }
             Console.ReadLine();
+            //*/
 
+
+
+
+
+
+            Console.WriteLine("*** End of Main Section. Press Enter... ***");
+            Console.ReadLine();
         }
 
+
+
+        //        ===================================================================
+        //        Old data
+        //        ===================================================================
+        /*
         static void InitialConfig()
         {
             string prgName = "Moo Agent";
@@ -109,5 +140,6 @@ namespace AgentPrototype
         {
             throw new NotImplementedException();
         }
+        */
     }
 }
