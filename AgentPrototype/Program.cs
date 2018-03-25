@@ -1,6 +1,7 @@
 ﻿using System;
 
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
@@ -83,7 +84,7 @@ namespace AgentPrototype
 
             // Print all data from List to screen
 
-            ///*
+            /*
             foreach (var ri in sysInfo)
             {
                 ri.GetInfo();
@@ -92,7 +93,7 @@ namespace AgentPrototype
             //*/
 
             //PreparationForSerialization();
-
+            Serializator.GetSystemVariables();
 
 
 
@@ -101,14 +102,16 @@ namespace AgentPrototype
         }
 
 
+
         public static void PreparationForSerialization()
         {
             Console.WriteLine(Environment.SystemDirectory);
             //Environment.OSVersion.Version.Build.ToString();
 
+        //public StringDictionary EnvironmentVariables { get; }
 
 
-        }
+    }
 
 
 
