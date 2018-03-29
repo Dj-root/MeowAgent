@@ -413,30 +413,43 @@ namespace AgentPrototype
             return servicesStatus;
         }
 
-        public static void GetInstalledSoftList()
+        public static List<InstalledSoft> GetInstalledSoftList()
         {
+            List<InstalledSoft> installedSoft = new List<InstalledSoft>();
+
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Product");
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                Console.WriteLine("<soft> Caption: {0}; InstallDate: {1}</soft>", queryObj["Caption"], queryObj["InstallDate"]);
+                InstalledSoft si = new InstalledSoft();
+                si.Caption = (string)queryObj["Caption"];
+                si.InstallDate = (string)queryObj["InstallDate"];
+                //si.InstallDate = DateTime.Parse(queryObj["InstallDate"].ToString());
+
+                installedSoft.Add(si);
             }
 
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            return installedSoft;
         }
 
-        public static void GetActiveProcessList()
+        public static List<ActiveProcesses> GetActiveProcessList()
         {
+            List<ActiveProcesses> activeProcesses = new List<ActiveProcesses>();
+
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2", "Select Name, CommandLine From Win32_Process");
 
             foreach (ManagementBaseObject instance in searcher.Get())
             {
-                Console.WriteLine("{0}", instance["Name"]);
+                ActiveProcesses ap = new ActiveProcesses();
+                ap.Name=(string) instance["Name"];
+
+                activeProcesses.Add(ap);
             }
 
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            return activeProcesses;
         }
+        
     }
 }

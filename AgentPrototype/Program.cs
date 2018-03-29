@@ -21,7 +21,7 @@ namespace AgentPrototype
             //        Debug source data
             //        ===================================================================
 
-            SystemInfo.GetInstalledSoftList();
+            //SystemInfo.GetActiveProcessList();
             //Console.WriteLine("\n===\n");
 
             //SystemInfo.GetOSInfo();
@@ -51,6 +51,8 @@ namespace AgentPrototype
             List<NetworkInfo> networkInfo = SystemInfo.GetNetworkInterfacesInfo();
             List<OsInfo> osInfo = SystemInfo.GetOSInfo();
             List<ServicesStatus> servicesStatus = SystemInfo.GetServicesStatus();
+            List<InstalledSoft> installedSoft = SystemInfo.GetInstalledSoftList();
+            List<ActiveProcesses> activeProcesses = SystemInfo.GetActiveProcessList();
 
             //            Add Child's Lists to Base List            
             sysInfo.AddRange(ramInfo);
@@ -61,13 +63,15 @@ namespace AgentPrototype
             sysInfo.AddRange(storageInfo);
             sysInfo.AddRange(osInfo);
             sysInfo.AddRange(servicesStatus);
+            sysInfo.AddRange(installedSoft);
+            sysInfo.AddRange(activeProcesses);
 
 
 
 
             // Print all data from List to screen
 
-            /*
+            ///*
             foreach (var ri in sysInfo)
             {
                 ri.GetInfo();

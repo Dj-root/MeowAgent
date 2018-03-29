@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveProcesses.cs" />
     <Compile Include="CpuInfo.cs" />
     <Compile Include="HddInfo.cs" />
+    <Compile Include="InstalledSoft.cs" />
     <Compile Include="ISysInfo.cs" />
     <Compile Include="NetworkInfo.cs" />
     <Compile Include="OsInfo.cs" />
