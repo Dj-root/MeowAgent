@@ -21,18 +21,80 @@ namespace AgentPrototype
         //        ===================================================================
 
 
+        public static List<SysInfo> GetAllSystemInfo()
+        {
+            //        ===================================================================
+            //        Work with sensor's data
+            //        ===================================================================
 
+            //            Create List of Base Class
+            List<SysInfo> sysInfo = new List<SysInfo>();
 
+            //            Create Lists of Child classed and fill it
+            List<RamInfo> ramInfo = SystemInfo.GetRamInfo();
+            List<CpuInfo> cpuInfo = SystemInfo.GetCpuInfo();
+            List<VideoInfo> videoInfo = SystemInfo.GetVideoControllerInfo();
+            List<HddInfo> hddInfo = SystemInfo.GetHddInfo();
+            List<StorageInfo> storageInfo = SystemInfo.GetStorageInfo();
+            List<NetworkInfo> networkInfo = SystemInfo.GetNetworkInterfacesInfo();
+            List<OsInfo> osInfo = SystemInfo.GetOSInfo();
+            List<ServicesStatus> servicesStatus = SystemInfo.GetServicesStatus();
+            List<InstalledSoft> installedSoft = SystemInfo.GetInstalledSoftList();
+            List<ActiveProcesses> activeProcesses = SystemInfo.GetActiveProcessList();
 
+            //            Add Child's Lists to Base List            
+            sysInfo.AddRange(ramInfo);
+            sysInfo.AddRange(cpuInfo);
+            sysInfo.AddRange(videoInfo);
+            sysInfo.AddRange(hddInfo);
+            sysInfo.AddRange(networkInfo);
+            sysInfo.AddRange(storageInfo);
+            sysInfo.AddRange(osInfo);
+            sysInfo.AddRange(servicesStatus);
+            sysInfo.AddRange(installedSoft);
+            sysInfo.AddRange(activeProcesses);
 
+            return sysInfo;
+        }
 
+        public static void PrintAllSystemInfo(List<SysInfo> sysInfo)
+        {
+            // Print all data from List to screen
+
+            foreach (var ri in sysInfo)
+            {
+                ri.GetInfo();
+            }
+            //Console.ReadLine();
+        }
+
+        public static void DebugSystemInfo()
+        {
+            //        ===================================================================
+            //        Debug source data
+            //        ===================================================================
+
+            //SystemInfo.GetActiveProcessList();
+            //Console.WriteLine("\n===\n");
+
+            //SystemInfo.GetOSInfo();
+            //List<NetworkInfo> netInfo = SystemInfo.GetNetworkInterfacesInfo();
+            //List<StorageInfo> storInfo = SystemInfo.GetStorageInfo();
+
+            //foreach (var info in storInfo)
+            //{
+            //    info.GetInfo();
+            //}
+
+            Console.WriteLine("=== No Debug Info ===");
+        }
 
 
         //        ===================================================================
         //        Get information from system sensors
         //        ===================================================================
 
-        public static List<HddInfo> GetHddInfo()
+        static List<HddInfo> GetHddInfo()
         {
             List<HddInfo> hddInfo = new List<HddInfo>();
 
@@ -72,7 +134,7 @@ namespace AgentPrototype
             return hddInfo;
         }
 
-        public static List<RamInfo> GetRamInfo()
+        static List<RamInfo> GetRamInfo()
         {
             List<RamInfo> ramList = new List<RamInfo>();
 
@@ -102,7 +164,7 @@ namespace AgentPrototype
             //Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
         }
 
-        public static List<CpuInfo> GetCpuInfo()
+        static List<CpuInfo> GetCpuInfo()
         {
             List<CpuInfo> cpuInfo = new List<CpuInfo>();
 
@@ -137,7 +199,7 @@ namespace AgentPrototype
             return cpuInfo;
         }
 
-        public static List<VideoInfo> GetVideoControllerInfo()
+        static List<VideoInfo> GetVideoControllerInfo()
         {
             List<VideoInfo> videoInfo = new List<VideoInfo>();
 
@@ -166,7 +228,7 @@ namespace AgentPrototype
             //            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
         }
 
-        public static List<NetworkInfo> GetNetworkInterfacesInfo()
+        static List<NetworkInfo> GetNetworkInterfacesInfo()
         {
             List<NetworkInfo> networkInfo = new List<NetworkInfo>();
 
@@ -313,7 +375,7 @@ namespace AgentPrototype
             return networkInfo;
         }
 
-        public static List<StorageInfo> GetStorageInfo()
+        static List<StorageInfo> GetStorageInfo()
         {
             List<StorageInfo> storageInfo = new List<StorageInfo>();
 
@@ -352,7 +414,7 @@ namespace AgentPrototype
             return storageInfo;
         }
 
-        public static List<OsInfo> GetOSInfo()
+        static List<OsInfo> GetOSInfo()
         {
             List<OsInfo> osInfo = new List<OsInfo>();
 
@@ -388,7 +450,7 @@ namespace AgentPrototype
 
         }
 
-        public static List<ServicesStatus> GetServicesStatus()
+        static List<ServicesStatus> GetServicesStatus()
         {
             List<ServicesStatus> servicesStatus = new List<ServicesStatus>();
 
@@ -413,7 +475,7 @@ namespace AgentPrototype
             return servicesStatus;
         }
 
-        public static List<InstalledSoft> GetInstalledSoftList()
+        static List<InstalledSoft> GetInstalledSoftList()
         {
             List<InstalledSoft> installedSoft = new List<InstalledSoft>();
 
@@ -433,7 +495,7 @@ namespace AgentPrototype
             return installedSoft;
         }
 
-        public static List<ActiveProcesses> GetActiveProcessList()
+        static List<ActiveProcesses> GetActiveProcessList()
         {
             List<ActiveProcesses> activeProcesses = new List<ActiveProcesses>();
 
@@ -443,13 +505,13 @@ namespace AgentPrototype
             foreach (ManagementBaseObject instance in searcher.Get())
             {
                 ActiveProcesses ap = new ActiveProcesses();
-                ap.Name=(string) instance["Name"];
+                ap.Name = (string)instance["Name"];
 
                 activeProcesses.Add(ap);
             }
 
             return activeProcesses;
         }
-        
+
     }
 }
