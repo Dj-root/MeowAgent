@@ -17,34 +17,14 @@ namespace AgentPrototype
         static void Main(string[] args)
         {
 
-            //List<SysInfo> sysInfo = new List<SysInfo>();
-
-            //Console.WriteLine(OSVersionInfo.GetOSVersionInfo());
-            //OSVersionInfo.GetOSVersionInfo();
-
-            //SystemInfo.GetActiveProcessList();
-            //SystemInfo.GetInstalledSoftList();
-            //SystemInfo.GetServicesStatus();
-            //SystemInfo.GetOSInfo();
-            //SystemInfo.GetStorageInfo();
-            //SystemInfo.GetNetworkInterfacesInfo();
-            //SystemInfo.GetVideoControllerInfo();
-            //SystemInfo.GetCpuInfo();
-            //SystemInfo.GetRamInfo();
-            //SystemInfo.GetHddInfo();
-
-
-            //sysInfo.AddRange(SystemInfo.GetRamInfo());
-
-
             //        ===================================================================
             //        Debug source data
             //        ===================================================================
 
-            //SystemInfo.GetTestStorageInfo();
+            SystemInfo.GetInstalledSoftList();
             //Console.WriteLine("\n===\n");
 
-            //SystemInfo.GetStorageInfo();
+            //SystemInfo.GetOSInfo();
             //List<NetworkInfo> netInfo = SystemInfo.GetNetworkInterfacesInfo();
             //List<StorageInfo> storInfo = SystemInfo.GetStorageInfo();
 
@@ -69,7 +49,8 @@ namespace AgentPrototype
             List<HddInfo> hddInfo = SystemInfo.GetHddInfo();
             List<StorageInfo> storageInfo = SystemInfo.GetStorageInfo();
             List<NetworkInfo> networkInfo = SystemInfo.GetNetworkInterfacesInfo();
-
+            List<OsInfo> osInfo = SystemInfo.GetOSInfo();
+            List<ServicesStatus> servicesStatus = SystemInfo.GetServicesStatus();
 
             //            Add Child's Lists to Base List            
             sysInfo.AddRange(ramInfo);
@@ -78,6 +59,8 @@ namespace AgentPrototype
             sysInfo.AddRange(hddInfo);
             sysInfo.AddRange(networkInfo);
             sysInfo.AddRange(storageInfo);
+            sysInfo.AddRange(osInfo);
+            sysInfo.AddRange(servicesStatus);
 
 
 
@@ -93,7 +76,7 @@ namespace AgentPrototype
             //*/
 
             //PreparationForSerialization();
-            Serializator.GetSystemVariables();
+            //Serializator.GetSystemVariables();
 
 
 

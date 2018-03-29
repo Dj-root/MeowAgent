@@ -324,7 +324,7 @@ namespace AgentPrototype
             foreach (ManagementObject queryObj in searcher.Get())
             {
                 StorageInfo si = new StorageInfo();
-                
+
                 //Console.WriteLine("-----------------------------------");
                 //Console.WriteLine("Win32_Volume instance");
                 //Console.WriteLine("-----------------------------------");
@@ -333,7 +333,7 @@ namespace AgentPrototype
 
                 //si.DriveLetter = queryObj["DriveLetter"].ToString() ?
 
-                if (queryObj["DriveLetter"]==null)
+                if (queryObj["DriveLetter"] == null)
                 {
                     si.DriveLetter = "";
                 }
@@ -348,83 +348,69 @@ namespace AgentPrototype
 
                 storageInfo.Add(si);
             }
-            
+
             return storageInfo;
         }
 
-        public static void GetTestStorageInfo()
+        public static List<OsInfo> GetOSInfo()
         {
+            List<OsInfo> osInfo = new List<OsInfo>();
 
-            ManagementObjectSearcher searcher =
-                new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Volume");
-
-            
-              foreach (ManagementObject queryObj in searcher.Get())
-            {
-                Console.WriteLine("-----------------------------------");
-                Console.WriteLine("Win32_Volume instance");
-                Console.WriteLine("-----------------------------------");
-                Console.WriteLine("Capacity: {0}", queryObj["Capacity"]);
-                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
-                Console.WriteLine("DriveLetter: {0}", queryObj["DriveLetter"]);
-                Console.WriteLine("DriveType: {0}", queryObj["DriveType"]);
-                Console.WriteLine("FileSystem: {0}", queryObj["FileSystem"]);
-                Console.WriteLine("FreeSpace: {0}", queryObj["FreeSpace"]);
-            }
-
-            //Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
-
-        }
-
-        public static void GetOSInfo()
-        {
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_OperatingSystem");
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                Console.WriteLine("-----------------------------------");
-                Console.WriteLine("Win32_OperatingSystem instance");
-                Console.WriteLine("-----------------------------------");
-                Console.WriteLine("BuildNumber: {0}", queryObj["BuildNumber"]);
-                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
-                Console.WriteLine("FreePhysicalMemory: {0}", queryObj["FreePhysicalMemory"]);
-                Console.WriteLine("FreeVirtualMemory: {0}", queryObj["FreeVirtualMemory"]);
-                Console.WriteLine("Name: {0}", queryObj["Name"]);
-                Console.WriteLine("OSType: {0}", queryObj["OSType"]);
-                Console.WriteLine("RegisteredUser: {0}", queryObj["RegisteredUser"]);
-                Console.WriteLine("SerialNumber: {0}", queryObj["SerialNumber"]);
-                Console.WriteLine("ServicePackMajorVersion: {0}", queryObj["ServicePackMajorVersion"]);
-                Console.WriteLine("ServicePackMinorVersion: {0}", queryObj["ServicePackMinorVersion"]);
-                Console.WriteLine("Status: {0}", queryObj["Status"]);
-                Console.WriteLine("SystemDevice: {0}", queryObj["SystemDevice"]);
-                Console.WriteLine("SystemDirectory: {0}", queryObj["SystemDirectory"]);
-                Console.WriteLine("SystemDrive: {0}", queryObj["SystemDrive"]);
-                Console.WriteLine("Version: {0}", queryObj["Version"]);
-                Console.WriteLine("WindowsDirectory: {0}", queryObj["WindowsDirectory"]);
+                OsInfo oi = new OsInfo();
+
+                oi.BuildNumber = Int32.Parse(queryObj["BuildNumber"].ToString());
+                oi.Caption = (string)queryObj["Caption"];
+                oi.FreePhysicalMemory = Math.Round(System.Convert.ToDouble(queryObj["FreePhysicalMemory"]) / 1024 / 1024, 2);
+                oi.FreeVirtualMemory = Math.Round(System.Convert.ToDouble(queryObj["FreeVirtualMemory"]) / 1024 / 1024, 2);
+                oi.Name = (string)queryObj["Name"];
+                oi.OSType = Int32.Parse(queryObj["OSType"].ToString());
+                oi.RegisteredUser = (string)queryObj["RegisteredUser"];
+                oi.SerialNumber = (string)queryObj["SerialNumber"];
+                oi.ServicePackMajorVersion = Int32.Parse(queryObj["ServicePackMajorVersion"].ToString());
+                oi.ServicePackMinorVersion = Int32.Parse(queryObj["ServicePackMinorVersion"].ToString());
+                oi.Status = (string)queryObj["Status"];
+                oi.SystemDevice = (string)queryObj["SystemDevice"];
+                oi.SystemDirectory = (string)queryObj["SystemDirectory"];
+                oi.SystemDrive = (string)queryObj["SystemDrive"];
+                oi.Version = (string)queryObj["Version"];
+                oi.WindowsDirectory = (string)queryObj["WindowsDirectory"];
+
+
+                osInfo.Add(oi);
             }
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+
+            return osInfo;
+
         }
 
-        public static void GetServicesStatus()
+        public static List<ServicesStatus> GetServicesStatus()
         {
+            List<ServicesStatus> servicesStatus = new List<ServicesStatus>();
+
+
             ManagementObjectSearcher searcher =
                 new ManagementObjectSearcher("root\\CIMV2", "Select * From Win32_Service");
 
             foreach (ManagementObject queryObj in searcher.Get())
             {
-                Console.WriteLine("\n------------------------------------------------");
-                Console.WriteLine("Win32_Service instance");
-                Console.WriteLine("------------------------------------------------");
-                Console.WriteLine("Caption: {0}", queryObj["Caption"]);
-                Console.WriteLine("Description: {0}", queryObj["Description"]);
-                Console.WriteLine("DisplayName: {0}", queryObj["DisplayName"]);
-                Console.WriteLine("Name: {0}", queryObj["Name"]);
-                Console.WriteLine("PathName: {0}", queryObj["PathName"]);
-                Console.WriteLine("Started: {0}", queryObj["Started"]);
+                ServicesStatus si = new ServicesStatus();
+
+                si.Caption = (string)queryObj["Caption"];
+                si.Description = (string)queryObj["Description"];
+                si.DisplayName = (string)queryObj["DisplayName"];
+                si.Name = (string)queryObj["Name"];
+                si.PathName = (string)queryObj["PathName"];
+                si.Started = bool.Parse(queryObj["Started"].ToString());
+
+                servicesStatus.Add(si);
             }
 
-            Console.WriteLine("\nCollection finished at {0}", System.DateTime.Now);
+            return servicesStatus;
         }
 
         public static void GetInstalledSoftList()
